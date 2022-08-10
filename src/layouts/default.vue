@@ -1,73 +1,120 @@
-<script>
-	export default {
-		data: () => ({
-			loading: false,
-			selection: 1
-		}),
+<template>
+	<header>
+		<img
+			alt="Vue logo"
+			class="logo"
+			src="@/assets/logo.svg"
+			width="125"
+			height="125"
+		/>
 
-		methods: {
-			reserve() {
-				this.loading = true
+		<div class="wrapper">
+			<HelloWorld :msg="$frontmatter.title" />
 
-				setTimeout(() => (this.loading = false), 2000)
-			}
+			<div id="nav">
+				<router-link to="/">Home</router-link>
+				<router-link to="/about">About</router-link>
+			</div>
+		</div>
+	</header>
+
+	<slot />
+</template>
+
+<style>
+	@import '~/assets/base.css';
+
+	#app {
+		max-width: 1280px;
+		margin: 0 auto;
+		padding: 2rem;
+
+		font-weight: normal;
+	}
+
+	header {
+		line-height: 1.5;
+		max-height: 100vh;
+	}
+
+	.logo {
+		display: block;
+		margin: 0 auto 2rem;
+	}
+
+	a,
+	.green {
+		text-decoration: none;
+		color: hsla(160, 100%, 37%, 1);
+		transition: 0.4s;
+	}
+
+	@media (hover: hover) {
+		a:hover {
+			background-color: hsla(160, 100%, 37%, 0.2);
 		}
 	}
-</script>
-<template>
-	<v-card :loading="loading" class="mx-auto my-12" max-width="374">
-		<v-progress-linear
-			v-if="loading"
-			class="position-absolute"
-			style="z-index: 1"
-			color="deep-purple"
-			height="10"
-			indeterminate
-		></v-progress-linear>
-		<v-img
-			height="250"
-			src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-			cover
-		></v-img>
-		<v-card-item>
-			<v-card-title>Cafe Badilico</v-card-title>
-			<v-card-subtitle
-				><span class="mr-1">Local Favorite</span>
-				<v-icon color="error" icon="mdi-fire-circle" size="small"></v-icon>
-			</v-card-subtitle>
-		</v-card-item>
-		<v-card-text>
-			<v-row align="center" class="mx-0">
-				<v-rating
-					:model-value="4.5"
-					color="amber"
-					dense
-					half-increments
-					readonly
-					size="14"
-				></v-rating>
-				<div class="text-grey ms-4">4.5 (413)</div>
-			</v-row>
-			<div class="my-4 text-subtitle-1">$ • Italian, Cafe</div>
-			<div>
-				Small plates, salads & sandwiches - an intimate setting with 12 indoor
-				seats plus patio seating.
-			</div>
-		</v-card-text>
-		<v-divider class="mx-4 mb-1"></v-divider>
-		<v-card-title>Tonight's availability</v-card-title>
-		<div class="px-4">
-			<v-chip-group v-model="selection">
-				<v-chip>5:30PM</v-chip>
-				<v-chip>7:30PM</v-chip>
-				<v-chip>8:00PM</v-chip>
-				<v-chip>9:00PM</v-chip>
-			</v-chip-group>
-		</div>
-		<v-card-actions>
-			<v-btn color="deep-purple-lighten-2" text @click="reserve">
-				Reserve
-			</v-btn>
-		</v-card-actions>
-	</v-card>
-</template>
+
+	#nav {
+		width: 100%;
+		font-size: 12px;
+		text-align: center;
+		margin-top: 2rem;
+	}
+
+	#nav a.router-link-exact-active {
+		color: var(--color-text);
+	}
+
+	#nav a.router-link-exact-active:hover {
+		background-color: transparent;
+	}
+
+	#nav a {
+		display: inline-block;
+		padding: 0 1rem;
+		border-left: 1px solid var(--color-border);
+	}
+
+	#nav a:first-of-type {
+		border: 0;
+	}
+
+	@media (min-width: 1024px) {
+		body {
+			display: flex;
+			place-items: center;
+		}
+
+		#app {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			padding: 0 2rem;
+		}
+
+		header {
+			display: flex;
+			place-items: center;
+			padding-right: calc(var(--section-gap) / 2);
+		}
+
+		header .wrapper {
+			display: flex;
+			place-items: flex-start;
+			flex-wrap: wrap;
+		}
+
+		.logo {
+			margin: 0 2rem 0 0;
+		}
+
+		#nav {
+			text-align: left;
+			margin-left: -1rem;
+			font-size: 1rem;
+
+			padding: 1rem 0;
+			margin-top: 1rem;
+		}
+	}
+</style>
